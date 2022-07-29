@@ -1,0 +1,19 @@
+layer linux base image the smallest => alpine cause it has a small size;
+layer app image => postgres for exemple.
+--------------------------------------------------------
+image && container 
+the first (image) it has the actual package - it's what make it movable; running
+the second is just starting the application (or the image in an other word); not running;
+---------------------------------------------------------
+cmds list:
+
+docker ps => to output running containers
+---------------------------------------------------------
+deff between dkr and vm
+
+kernel -> comncate with hard and apps => based on the kernel;
+the kernel is the same linux;
+docker and VM are both vrlz tools;
+docker implement one lear (app) while VM implemnts APP && kernel; so dkr is small + speed + VM can be runned on OS, while dkr can't cause it depends on the kernel and that one is not always anyway it has a solution called "Docker toolbox" it's a bridge; 
+------------------------------------------------------------
+
