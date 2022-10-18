@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    environment:
+      -NGINX_ENTRYPOINT_QUIET_LOGS=1
