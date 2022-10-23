@@ -1,7 +1,15 @@
 version: '3.8'
 
 services:
-  nginx:
+  WordPress_PHP:
+    image: wordpress
+  
+  NGINX:
     image: nginx
-    environment:
-      -NGINX_ENTRYPOINT_QUIET_LOGS=1
+    ports:
+      - 
+
+  DB:
+    image: mariadb
+    volumes:
+      - db_data:/var/libsy/mariadb
