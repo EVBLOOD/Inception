@@ -1,2 +1,9 @@
 apt-get update -y && apt-get upgrade -y && apt-install nginx -y && apt-get install openssl && sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 |/etc/nginx/sites-available is the place where I'll change port|
+
+
+... 
+
+mariadb:
+
+apt-get update -y && apt-get upgrade -y && apt-get install mariadb-server mariadb-client -y && service mysql start && echo "create database if not exists my_database; use my_database;" > script.sql && mysql mysql < script.sql
