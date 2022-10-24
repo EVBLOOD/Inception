@@ -6,4 +6,8 @@ apt-get update -y && apt-get upgrade -y && apt-install nginx -y && apt-get insta
 
 mariadb:
 
-apt-get update -y && apt-get upgrade -y && apt-get install mariadb-server mariadb-client -y && service mysql start && echo "create database if not exists my_database; use my_database;" > script.sql && mysql mysql < script.sql
+apt-get update -y && apt-get upgrade -y && apt-get install mariadb-server -y && service mysql start && echo "create database if not exists my_database; use my_database;" > script.sql && mysql mysql < script.sql
+
+wordpress:
+
+apt-get update -y && apt-get upgrade -y &&  apt-get install php-fpm -y && apt-get install curl -y && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar &&  && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && wp core download --allow-root

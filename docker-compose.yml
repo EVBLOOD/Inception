@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  WordPress_PHP:
+    container_name: wordpress
+    build: ./wordpress/
+    image: wordpress
+    ports:
+      - 9000:9000
+    depends_on:
+      - DB
+    restart: always
+  NGINX:
+    build: ./NGINX/
+    image: nginx
+    ports:
+      - 443:443
+    restart: always
+  DB:
+    build: ./mariadb/
+    image: mariadb
+    ports:
+      - 3306:3306
+    restart: always
