@@ -1,24 +1,64 @@
 version: '3'
 
 services:
-  WordPress_PHP:
-    container_name: wordpress
-    build: ./wordpress/
-    image: wordpress
-    ports:
-      - 9000:9000
-    depends_on:
-      - DB
-    restart: always
-  NGINX:
-    build: ./NGINX/
-    image: nginx
-    ports:
-      - 443:443
-    restart: always
-  DB:
+  mariadb:
+    container_name: mariadb
     build: ./mariadb/
-    image: mariadb
+    volumes:
+      - DB:/var/lib/mysql
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.10"
     ports:
       - 3306:3306
+    restart: on-failure
+  wordpress:
+    container_name: wordpress
+    build: ./wordpress/
+    ports:
+      - 9000:9000
+    volumes:
+      - wp:/var/www/html
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.11"
+    depends_on:
+      - mariadb
+    restart: on-failure
+  nginx:
+    container_name: nginx
+    build: ./NGINX/
+    volumes:
+      - wp:/var/www/html
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.12"
+    ports:
+      - 443:443
+    depends_on:
+      - wordpress
+    restart: on-failure
+  adminer:
+    image: adminer
     restart: always
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.13"
+    ports:
+      - 8080:8080
+
+volumes:
+  DB:
+    driver_opts:
+      o: bind
+      device: /Users/sakllam/Desktop/data/mysql
+  wp:
+    driver_opts:
+      o: bind
+      device: /Users/sakllam/Desktop/data/wordpress
+networks:
+  inceptionNetwork:
+      driver: bridge
+      ipam:
+          config:
+              - subnet: "10.12.100.0/24"

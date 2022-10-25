@@ -1,5 +1,7 @@
 FROM debian:buster
-RUN apt-get update -y && apt-get upgrade -y
-COPY ./script.sh /tmp/s.sh
-EXPOSE 9000
-ENTRYPOINT ["/bin/sh", "/tmp/s.sh"]
+
+COPY ./tools/script.sh /tmp/s.sh
+
+ENTRYPOINT ["./tmp/s.sh"]
+
+CMD ["php7.3-fpm -F"]
