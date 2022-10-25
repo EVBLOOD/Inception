@@ -4,4 +4,4 @@ COPY ./tools/script.sh /tmp/s.sh
 
 ENTRYPOINT ["./tmp/s.sh"]
 
-CMD ["php7.3-fpm -F"]
+# CMD ["php7.3-fpm -F"]

@@ -3,7 +3,6 @@
 apt-get update -y
 apt-get upgrade -y
 apt-get install curl php-fpm php-mysql -y
-echo $(cd /usr/local/bin/wp)
 if [[ -f /usr/local/bin/wp ]]
 then
 service php7.3-fpm start
