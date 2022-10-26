@@ -46,6 +46,14 @@ services:
         ipv4_address: "10.12.100.13"
     ports:
       - 8080:8080
+  redis:
+    build: ./bonus/redis
+    restart: on-failure
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.14"
+    ports:
+      - 6379:6379
 volumes:
   DB:
     driver_opts:
