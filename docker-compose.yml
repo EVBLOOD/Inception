@@ -38,7 +38,14 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
-
+  adminer:
+    build: ./bonus/adminer
+    restart: on-failure
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.13"
+    ports:
+      - 8080:8080
 volumes:
   DB:
     driver_opts:
