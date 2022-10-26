@@ -38,20 +38,12 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   networks:
-  #     inceptionNetwork:
-  #       ipv4_address: "10.12.100.13"
-  #   ports:
-  #     - 8080:8080
 
 volumes:
   DB:
-  #   driver_opts:
-  #     o: bind
-  #     device: /Users/sakllam/Desktop/data/mysql
+    driver_opts:
+      o: bind
+      device: /Users/sakllam/Desktop/data/mysql
   wp:
     driver_opts:
       o: bind

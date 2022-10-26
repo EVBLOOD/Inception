@@ -33,3 +33,12 @@ server {
 php-fpm -F -R
 
 php-fpm7.3 -F
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   networks:
+  #     inceptionNetwork:
+  #       ipv4_address: "10.12.100.13"
+  #   ports:
+  #     - 8080:8080
