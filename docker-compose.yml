@@ -24,6 +24,7 @@ services:
         ipv4_address: "10.12.100.11"
     depends_on:
       - mariadb
+      - redis
     restart: on-failure
   nginx:
     container_name: nginx
@@ -54,6 +55,15 @@ services:
         ipv4_address: "10.12.100.14"
     ports:
       - 6379:6379
+  ftp:
+  build: ./bonus/ftp
+  restart: on-failure
+  networks:
+    inceptionNetwork:
+      ipv4_address: "10.12.100.15"
+  ports:
+    - 6379:6379
+
 volumes:
   DB:
     driver_opts:
