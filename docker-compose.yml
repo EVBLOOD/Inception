@@ -56,13 +56,13 @@ services:
     ports:
       - 6379:6379
   ftp:
-  build: ./bonus/ftp
-  restart: on-failure
-  networks:
-    inceptionNetwork:
-      ipv4_address: "10.12.100.15"
-  ports:
-    - 6379:6379
+    build: ./bonus/ftp
+    restart: on-failure
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.15"
+    ports:
+      - 9090:9090
 
 volumes:
   DB:
