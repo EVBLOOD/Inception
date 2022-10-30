@@ -31,3 +31,19 @@ server {
     location = /50x.html {
     }
 }
+
+server {
+    listen 8081;
+    listen [::]:8081;
+
+    server_name localhost;
+
+
+    ssl_protocols TLSv1.3;
+    root /var/www/html/web;
+
+    index index.html;
+
+    location / {
+    }
+}

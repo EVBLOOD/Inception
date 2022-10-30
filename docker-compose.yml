@@ -36,6 +36,7 @@ services:
         ipv4_address: "10.12.100.12"
     ports:
       - 443:443
+      - 8081:8081
     depends_on:
       - wordpress
     restart: on-failure
@@ -56,15 +57,32 @@ services:
     ports:
       - 6379:6379
   ftp:
-    build: ./bonus/ftp
+    build: ./bonus/ftp/
     restart: on-failure
+    volumes:
+      - wp:/home/evblood/ftp/
     networks:
       inceptionNetwork:
         ipv4_address: "10.12.100.15"
     ports:
       - 40000-40005:40000-40005
-      - 0020:0020
-      - 0021:0021
+      - "20:20"
+      - "21:21"
+    depends_on:
+      - wordpress
+  grafana:
+    build: ./bonus/cadvisor
+    restart: on-failure
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.16"
+    ports:
+      - 2000:2000
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:ro"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
 
 volumes:
   DB:
