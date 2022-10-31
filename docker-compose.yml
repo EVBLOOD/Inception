@@ -8,7 +8,6 @@ services:
       - DB:/var/lib/mysql
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.10"
     ports:
       - 3306:3306
     restart: on-failure
@@ -21,7 +20,6 @@ services:
       - wp:/var/www/html
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.11"
     depends_on:
       - mariadb
       - redis
@@ -33,7 +31,6 @@ services:
       - wp:/var/www/html
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.12"
     ports:
       - 443:443
       - 8081:8081
@@ -45,7 +42,6 @@ services:
     restart: on-failure
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.13"
     ports:
       - 8080:8080
   redis:
@@ -53,7 +49,6 @@ services:
     restart: on-failure
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.14"
     ports:
       - 6379:6379
   ftp:
@@ -63,19 +58,17 @@ services:
       - wp:/home/evblood/ftp/
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.15"
     ports:
       - 40000-40005:40000-40005
       - "20:20"
       - "21:21"
     depends_on:
       - wordpress
-  grafana:
+  cadvisor:
     build: ./bonus/cadvisor
     restart: on-failure
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.16"
     ports:
       - 2000:2000
     volumes:
@@ -88,7 +81,6 @@ services:
     restart: on-failure
     networks:
       inceptionNetwork:
-        ipv4_address: "10.12.100.17"
     ports:
       - 81:81
 
@@ -104,6 +96,3 @@ volumes:
 networks:
   inceptionNetwork:
       driver: bridge
-      ipam:
-          config:
-              - subnet: "10.12.100.0/24"
