@@ -83,6 +83,14 @@ services:
       - "/var/run:/var/run:ro"
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
+  staticwebsite:
+    build: ./bonus/staticwebsite
+    restart: on-failure
+    networks:
+      inceptionNetwork:
+        ipv4_address: "10.12.100.17"
+    ports:
+      - 81:81
 
 volumes:
   DB:
