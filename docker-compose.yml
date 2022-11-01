@@ -8,7 +8,7 @@ services:
     volumes:
       - DB:/var/lib/mysql
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 3306:3306
     restart: on-failure
@@ -21,7 +21,7 @@ services:
     volumes:
       - wp:/var/www/html
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     depends_on:
       - mariadb
       - redis
@@ -33,7 +33,7 @@ services:
     volumes:
       - wp:/var/www/html
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 443:443
       - 8081:8081
@@ -46,7 +46,7 @@ services:
     image: adminer
     restart: on-failure
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 8080:8080
   redis:
@@ -55,7 +55,7 @@ services:
     image: redis
     restart: on-failure
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 6379:6379
   ftp:
@@ -66,7 +66,7 @@ services:
     volumes:
       - wp:/home/evblood/ftp/
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 40000-40005:40000-40005
       - "20:20"
@@ -79,7 +79,7 @@ services:
     image: cadvisor
     restart: on-failure
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 2000:2000
     volumes:
@@ -93,7 +93,7 @@ services:
     image: staticwebsite
     restart: on-failure
     networks:
-      inceptionNetwork:
+      - inceptionNetwork
     ports:
       - 81:81
 
