@@ -10,7 +10,7 @@ server {
     ssl_protocols TLSv1.3;
     root /var/www/html;
 
-    index index.php index.html index.htm;
+    index index.php;
 
     location / {
     try_files $uri $uri/ /index.php?$args;
@@ -29,21 +29,5 @@ server {
 
     error_page 500 502 503 504 /50x.html;
     location = /50x.html {
-    }
-}
-
-server {
-    listen 8081;
-    listen [::]:8081;
-
-    server_name localhost;
-
-
-    ssl_protocols TLSv1.3;
-    root /var/www/html/web;
-
-    index index.html;
-
-    location / {
     }
 }

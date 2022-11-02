@@ -1,14 +1,7 @@
 #!/bin/sh
-
-apt-get update -y
-apt-get upgrade -y
-apt-get install curl php-fpm php-mysql -y
-# if [[ -f /usr/local/bin/wp ]]
-# then
-# service php7.3-fpm start
-# service php7.3-fpm status
-# tail -f > /dev/null
-# else
+apt update -y
+apt upgrade -y
+apt install curl php-fpm php-mysql -y
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp 
@@ -25,10 +18,4 @@ wp plugin install redis-cache --path=/var/www/html --allow-root
 wp plugin activate redis-cache --path=/var/www/html --allow-root
 wp redis enable --path=/var/www/html --allow-root
 mkdir -p /run/php
-# service php7.3-fpm start
-# service php7.3-fpm restart
-# php7.3-fpm --nodaemonize
-# service php7.3-fpm status
 php-fpm7.3 -F
-# tail -f > /dev/null
-# fi
