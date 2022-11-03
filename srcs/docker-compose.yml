@@ -1,6 +1,7 @@
-version: '3'
+version: '3.7'
 
 services:
+
   nginx:
     container_name: nginx
     build: ./requirements/nginx/
@@ -14,6 +15,7 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/
@@ -28,6 +30,9 @@ services:
       - mariadb
       - redis
     restart: on-failure
+    env_file:
+      - ../.env
+
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
@@ -39,6 +44,7 @@ services:
     ports:
       - 3306:3306
     restart: on-failure
+
   adminer:
     container_name: adminer
     build: ./requirements/bonus/adminer
@@ -72,6 +78,7 @@ services:
       - "21:21"
     depends_on:
       - wordpress
+
   cadvisor:
     container_name: cadvisor
     build: ./requirements/bonus/cadvisor
@@ -86,6 +93,7 @@ services:
       - "/var/run:/var/run:ro"
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
+
   staticwebsite:
     container_name: staticwebsite
     build: ./requirements/bonus/staticwebsite
@@ -97,14 +105,17 @@ services:
       - 81:81
 
 volumes:
+
   DB:
     driver_opts:
       o: bind
       device: /Users/sakllam/Desktop/data/mysql
+
   wp:
     driver_opts:
       o: bind
       device: /Users/sakllam/Desktop/data/wordpress
+
 networks:
   inceptionNetwork:
       driver: bridge
