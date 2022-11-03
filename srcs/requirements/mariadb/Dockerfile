@@ -1,6 +1,6 @@
 FROM debian:buster
 
-COPY ./db.sql /tmp/db.sql
+COPY ./conf/db.sql /tmp/db.sql
 
 RUN apt update -y && apt upgrade -y\
     && apt install mariadb-server -y && service mysql start\

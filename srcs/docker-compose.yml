@@ -1,20 +1,22 @@
 version: '3'
 
 services:
-  mariadb:
-    container_name: mariadb
-    build: ./mariadb/
-    image: mariadb
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    image: nginx
     volumes:
-      - DB:/var/lib/mysql
+      - wp:/var/www/html
     networks:
       - inceptionNetwork
     ports:
-      - 3306:3306
+      - 443:443
+    depends_on:
+      - wordpress
     restart: on-failure
   wordpress:
     container_name: wordpress
-    build: ./wordpress/
+    build: ./requirements/wordpress/
     image: wordpress
     ports:
       - 9000:9000
@@ -26,23 +28,20 @@ services:
       - mariadb
       - redis
     restart: on-failure
-  nginx:
-    container_name: nginx
-    build: ./NGINX/
-    image: nginx
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    image: mariadb
     volumes:
-      - wp:/var/www/html
+      - DB:/var/lib/mysql
     networks:
       - inceptionNetwork
     ports:
-      - 443:443
-      - 8081:8081
-    depends_on:
-      - wordpress
+      - 3306:3306
     restart: on-failure
   adminer:
     container_name: adminer
-    build: ./bonus/adminer
+    build: ./requirements/bonus/adminer
     image: adminer
     restart: on-failure
     networks:
@@ -51,7 +50,7 @@ services:
       - 8080:8080
   redis:
     container_name: redis
-    build: ./bonus/redis
+    build: ./requirements/bonus/redis
     image: redis
     restart: on-failure
     networks:
@@ -60,7 +59,7 @@ services:
       - 6379:6379
   ftp:
     container_name: ftp
-    build: ./bonus/ftp/
+    build: ./requirements/bonus/ftp/
     image: ftp
     restart: on-failure
     volumes:
@@ -75,7 +74,7 @@ services:
       - wordpress
   cadvisor:
     container_name: cadvisor
-    build: ./bonus/cadvisor
+    build: ./requirements/bonus/cadvisor
     image: cadvisor
     restart: on-failure
     networks:
@@ -89,7 +88,7 @@ services:
       - "/var/lib/docker/:/var/lib/docker:ro"
   staticwebsite:
     container_name: staticwebsite
-    build: ./bonus/staticwebsite
+    build: ./requirements/bonus/staticwebsite
     image: staticwebsite
     restart: on-failure
     networks:
