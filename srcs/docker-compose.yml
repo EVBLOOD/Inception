@@ -108,11 +108,13 @@ volumes:
 
   DB:
     driver_opts:
+      type: none
       o: bind
       device: /Users/sakllam/Desktop/data/mysql
 
   wp:
     driver_opts:
+      type: none
       o: bind
       device: /Users/sakllam/Desktop/data/wordpress
 
