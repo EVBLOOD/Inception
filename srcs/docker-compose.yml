@@ -2,37 +2,6 @@ version: '3.7'
 
 services:
 
-  nginx:
-    container_name: nginx
-    build: ./requirements/nginx/
-    image: nginx
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - inceptionNetwork
-    ports:
-      - 443:443
-    depends_on:
-      - wordpress
-    restart: on-failure
-
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress/
-    image: wordpress
-    ports:
-      - 9000:9000
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - inceptionNetwork
-    depends_on:
-      - mariadb
-      - redis
-    restart: on-failure
-    env_file:
-      - ../.env
-
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
@@ -45,15 +14,39 @@ services:
       - 3306:3306
     restart: on-failure
 
-  adminer:
-    container_name: adminer
-    build: ./requirements/bonus/adminer
-    image: adminer
-    restart: on-failure
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    image: nginx
+    volumes:
+      - wp:/var/www/html
     networks:
       - inceptionNetwork
     ports:
-      - 8080:8080
+      - 443:443
+    restart: on-failure
+    # depends_on:
+    #   - wordpress
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/
+    image: wordpress
+    ports:
+      - 9000:9000
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - inceptionNetwork
+    restart: on-failure
+    env_file:
+      - ../.env
+    # depends_on:
+    #   - mariadb
+    #   - redis
+    #   - nginx
+
+
   redis:
     container_name: redis
     build: ./requirements/bonus/redis
@@ -63,6 +56,19 @@ services:
       - inceptionNetwork
     ports:
       - 6379:6379
+
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer
+    image: adminer
+    restart: on-failure
+    networks:
+      - inceptionNetwork
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+
   ftp:
     container_name: ftp
     build: ./requirements/bonus/ftp/

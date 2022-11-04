@@ -13,6 +13,7 @@ define('WP_REDIS_PORT', 6379);
 define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_DISABLED', false);
 PHP
+echo "start " $MYSQL_DATABASE $MYSQL_USER $MYSQL_PASSWORD $MYSQL_host "   end"
 wp core install --url=$url --title=$title --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email --allow-root --path=/var/www/html
 wp plugin install redis-cache --path=/var/www/html --allow-root
 wp plugin activate redis-cache --path=/var/www/html --allow-root
