@@ -116,13 +116,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/sakllam/Desktop/data/mysql
+      device: /home/sakllam/data/mysql
 
   wp:
     driver_opts:
       type: none
       o: bind
-      device: /Users/sakllam/Desktop/data/wordpress
+      device: /home/sakllam/data/wordpress
 
 networks:
   inceptionNetwork:

@@ -13,7 +13,7 @@
 all: clean build
 
 build:
-	mkdir -p /Users/sakllam/Desktop/data/mysql && mkdir -p /Users/sakllam/Desktop/data/wordpress && docker-compose -f srcs/docker-compose.yml up --build
+	mkdir -p /home/sakllam/data/mysql && mkdir -p /home/sakllam/data/wordpress && docker-compose -f srcs/docker-compose.yml up --build
 
 stop:
 	docker-compose -f srcs/docker-compose.yml down
@@ -22,7 +22,7 @@ up:
 	docker-compose -f srcs/docker-compose.yml up
 
 clean:
-	rm -rf /Users/sakllam/Desktop/data/mysql && rm -rf /Users/sakllam/Desktop/data/wordpress
+	rm -rf /home/sakllam/data/mysql && rm -rf /home/sakllam/data/wordpress
 	docker-compose -f srcs/docker-compose.yml down -v
 
 fclean: clean
