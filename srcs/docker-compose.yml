@@ -25,8 +25,9 @@ services:
     ports:
       - 443:443
     restart: on-failure
-    # depends_on:
-    #   - wordpress
+    depends_on:
+      - wordpress
+      - mariadb
 
   wordpress:
     container_name: wordpress
@@ -41,8 +42,8 @@ services:
     restart: on-failure
     env_file:
       - ../.env
-    # depends_on:
-    #   - mariadb
+    depends_on:
+      - mariadb
     #   - redis
     #   - nginx
 
@@ -56,6 +57,8 @@ services:
       - inceptionNetwork
     ports:
       - 6379:6379
+    depends_on:
+      - wordpress
 
   adminer:
     container_name: adminer
