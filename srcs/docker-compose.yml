@@ -1,33 +1,31 @@
 version: '3.7'
 
 services:
-
   mariadb:
-    container_name: mariadb
     build: ./requirements/mariadb/
+    container_name: mariadb
     image: mariadb
+    ports:
+      - 3306:3306
     volumes:
       - DB:/var/lib/mysql
     networks:
       - inceptionNetwork
-    ports:
-      - 3306:3306
     restart: on-failure
 
   nginx:
-    container_name: nginx
     build: ./requirements/nginx/
+    container_name: nginx
     image: nginx
+    ports:
+      - 443:443
     volumes:
       - wp:/var/www/html
     networks:
       - inceptionNetwork
-    ports:
-      - 443:443
     restart: on-failure
     depends_on:
       - wordpress
-      - mariadb
 
   wordpress:
     container_name: wordpress
@@ -44,55 +42,51 @@ services:
       - ../.env
     depends_on:
       - mariadb
-    #   - redis
-    #   - nginx
+      - redis
 
 
   redis:
-    container_name: redis
     build: ./requirements/bonus/redis
+    container_name: redis
     image: redis
-    restart: on-failure
     networks:
       - inceptionNetwork
     ports:
       - 6379:6379
-    depends_on:
-      - wordpress
+    restart: on-failure
 
   adminer:
-    container_name: adminer
     build: ./requirements/bonus/adminer
+    container_name: adminer
     image: adminer
-    restart: on-failure
     networks:
       - inceptionNetwork
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - mariadb
+    restart: on-failure
 
   ftp:
     container_name: ftp
     build: ./requirements/bonus/ftp/
     image: ftp
-    restart: on-failure
     volumes:
       - wp:/home/evblood/ftp/
     networks:
       - inceptionNetwork
     ports:
-      - 40000-40005:40000-40005
+      - "40000-40005:40000-40005"
       - "20:20"
       - "21:21"
     depends_on:
       - wordpress
+    restart: on-failure
 
   cadvisor:
-    container_name: cadvisor
     build: ./requirements/bonus/cadvisor
+    container_name: cadvisor
     image: cadvisor
-    restart: on-failure
     networks:
       - inceptionNetwork
     ports:
@@ -102,28 +96,27 @@ services:
       - "/var/run:/var/run:ro"
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
+    restart: on-failure
 
   staticwebsite:
-    container_name: staticwebsite
     build: ./requirements/bonus/staticwebsite
+    container_name: staticwebsite
     image: staticwebsite
-    restart: on-failure
     networks:
       - inceptionNetwork
     ports:
       - 81:81
+    restart: on-failure
 
 volumes:
-
   DB:
     driver_opts:
-      type: none
+      type: 'none'
       o: bind
       device: /home/sakllam/data/mysql
-
   wp:
     driver_opts:
-      type: none
+      type: 'none'
       o: bind
       device: /home/sakllam/data/wordpress
 
