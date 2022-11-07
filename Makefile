@@ -27,6 +27,3 @@ clean:
 	rm -rf /home/sakllam/data/mysql
 	rm -rf /home/sakllam/data/wordpress
 	docker-compose -f srcs/docker-compose.yml down -v
-
-fclean: clean
-	docker system prune --force --all

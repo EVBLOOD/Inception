@@ -39,7 +39,7 @@ services:
       - inceptionNetwork
     restart: on-failure
     env_file:
-      - ../.env
+      - .env
     depends_on:
       - mariadb
       - redis
@@ -82,7 +82,7 @@ services:
     depends_on:
       - wordpress
     env_file:
-      - ../.env
+      - .env
     restart: on-failure
 
   cadvisor:
