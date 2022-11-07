@@ -1,9 +1,10 @@
 apt update -y;
 apt install vsftpd -y
 service vsftpd start;
-useradd -p $userpasswrd $username;
+adduser --gecos "" $username;
+echo "$username:$userpasswrd" | chpasswd;
 mkdir -p /home/$username/ftp/;
-chown -R $username:$username /home/$username/ftp/;
+chown -R "$username:$username" /home/$username/;
 echo "$username" >> /etc/vsftpd.userlist
 echo "local_enable=YES" >> /etc/vsftpd.conf;
 echo "write_enable=YES" >> /etc/vsftpd.conf;

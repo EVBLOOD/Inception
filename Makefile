@@ -13,9 +13,8 @@
 all: clean build
 
 build:
-	# echo "127.0.0.1	sakllam.42.fr" > /etc/hosts
-	mkdir -p ./data/mysql
-	mkdir -p ./data/wordpress
+	mkdir -p /home/sakllam/data/mysql
+	mkdir -p /home/sakllam/data/wordpress
 	docker-compose -f srcs/docker-compose.yml up --build
 
 stop:
@@ -25,8 +24,8 @@ up:
 	docker-compose -f srcs/docker-compose.yml up
 
 clean:
-	rm -rf ./data/mysql
-	rm -rf ./data/wordpress
+	rm -rf /home/sakllam/data/mysql
+	rm -rf /home/sakllam/data/wordpress
 	docker-compose -f srcs/docker-compose.yml down -v
 
 fclean: clean
