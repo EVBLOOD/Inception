@@ -4,7 +4,6 @@ apt install curl php-fpm php-mysql -y
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp 
-# mkdir -p /var/www/html
 sed -i -e 's/listen =.*/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 wp core download --path="/var/www/html"  --allow-root
 chown -R www-data:www-data /var/www/html
@@ -20,8 +19,3 @@ wp plugin activate redis-cache --path=/var/www/html --allow-root
 wp redis enable --path=/var/www/html --allow-root
 service php7.3-fpm stop
 php-fpm7.3 -F
-
-#user = www-data
-#group = www-data
-#listen.owner = www-data
-#listen.group = www-data
